@@ -5,16 +5,56 @@ import os
 
 
 class DatasetCatalog(object):
-    DATA_DIR = "datasets"
+    DATA_DIR = "maskrcnn_benchmark/data/datasets"
     DATASETS = {
         "robotseg_2017_group1": {
-            "img_dir": "robotseg/group1_2017",
-            "ann_file": "robotseg/annotations/group1_2017.json"
+            "img_dir": "robotseg/group1_2017/images",
+            "ann_dir": "robotseg/group1_2017/annotations"
         },
         "robotseg_2017_group2": {
-            "img_dir": "robotseg/group2_2017",
-            "ann_file": "robotseg/annotations/group2_2017.json"
-        },    
+            "img_dir": "robotseg/group2_2017/images",
+            "ann_dir": "robotseg/group2_2017/annotations"
+        },
+        "coco_robotseg_2017_group1": {
+            "img_dir": "robotseg/group1_2017/images",
+            "ann_file": "robotseg/group1_2017/RobotSeg2017_group1.json"
+        },
+        "coco_robotseg_2017_group2": {
+            "img_dir": "robotseg/group2_2017/images",
+            "ann_file": "robotseg/group2_2017/RobotSeg2017_group2.json"
+        },
+        "coco_robotseg_2017_aug_group1": {
+            "img_dir": "robotseg/group1_2017_aug/images",
+            "ann_file": "robotseg/group1_2017_aug/RobotSeg2017_aug_group1.json"
+        },
+        "coco_robotseg_2017_aug_group2": {
+            "img_dir": "robotseg/group2_2017_aug/images",
+            "ann_file": "robotseg/group2_2017_aug/RobotSeg2017_aug_group2.json"
+        },
+        "coco_robotseg_2017_simple_group1": {
+            "img_dir": "robotseg/group1_2017/images",
+            "ann_file": "robotseg/group1_2017/RobotSeg2017_simple_group1.json"
+        },
+        "coco_robotseg_2017_simple_group2": {
+            "img_dir": "robotseg/group2_2017/images",
+            "ann_file": "robotseg/group2_2017/RobotSeg2017_simple_group2.json"
+        },
+        "coco_robotseg_2017_aug_simple_group1": {
+            "img_dir": "robotseg/group1_2017_aug/images",
+            "ann_file": "robotseg/group1_2017_aug/RobotSeg2017_aug_simple_group1.json"
+        },
+        "coco_robotseg_2017_aug_simple_group2": {
+            "img_dir": "robotseg/group2_2017_aug/images",
+            "ann_file": "robotseg/group2_2017_aug/RobotSeg2017_aug_simple_group2.json"
+        },
+        "coco_robotseg_2017_aug_simple201_group1": {
+            "img_dir": "robotseg/group1_2017_aug201/images",
+            "ann_file": "robotseg/group1_2017_aug201/RobotSeg2017_aug_simple201_group1.json"
+        },
+        "coco_robotseg_2017_aug_simple201_group2": {
+            "img_dir": "robotseg/group2_2017_aug201/images",
+            "ann_file": "robotseg/group2_2017_aug201/RobotSeg2017_aug_simple201_group2.json"
+        },          
         "coco_2014_train": {
             "img_dir": "coco/train2014",
             "ann_file": "coco/annotations/instances_train2014.json"
@@ -112,6 +152,17 @@ class DatasetCatalog(object):
             )
             return dict(
                 factory="PascalVOCDataset",
+                args=args,
+            )
+        elif "robotseg" in name:
+            data_dir = os.path.join('maskrcnn_benchmark', 'data', DatasetCatalog.DATA_DIR)
+            attrs = DatasetCatalog.DATASETS[name]
+            args = dict(
+                image_dir=os.path.join(data_dir, attrs["img_dir"]),
+                ann_dir=os.path.join(data_dir, attrs["ann_dir"]),
+            )
+            return dict(
+                factory="RobotSegDataset",
                 args=args,
             )
         raise RuntimeError("Dataset not available: {}".format(name))

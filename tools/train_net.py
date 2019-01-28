@@ -25,6 +25,7 @@ from maskrcnn_benchmark.utils.imports import import_file
 from maskrcnn_benchmark.utils.logger import setup_logger
 from maskrcnn_benchmark.utils.miscellaneous import mkdir
 
+import pdb
 
 def train(cfg, local_rank, distributed):
     model = build_detection_model(cfg)
@@ -40,7 +41,6 @@ def train(cfg, local_rank, distributed):
             # this should be removed if we update BatchNorm stats
             broadcast_buffers=False,
         )
-
     arguments = {}
     arguments["iteration"] = 0
 
@@ -61,7 +61,6 @@ def train(cfg, local_rank, distributed):
     )
 
     checkpoint_period = cfg.SOLVER.CHECKPOINT_PERIOD
-
     do_train(
         model,
         data_loader,

@@ -9,6 +9,8 @@ import torch.distributed as dist
 from maskrcnn_benchmark.utils.comm import get_world_size
 from maskrcnn_benchmark.utils.metric_logger import MetricLogger
 
+import pdb
+
 
 def reduce_loss_dict(loss_dict):
     """
@@ -62,7 +64,6 @@ def do_train(
 
         images = images.to(device)
         targets = [target.to(device) for target in targets]
-
         loss_dict = model(images, targets)
 
         losses = sum(loss for loss in loss_dict.values())
