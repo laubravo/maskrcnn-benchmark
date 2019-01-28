@@ -7,6 +7,7 @@ import os
 class DatasetCatalog(object):
     DATA_DIR = "maskrcnn_benchmark/data/datasets"
     DATASETS = {
+<<<<<<< HEAD
         "robotseg_2017_group1": {
             "img_dir": "robotseg/group1_2017/images",
             "ann_dir": "robotseg/group1_2017/annotations"
@@ -55,6 +56,16 @@ class DatasetCatalog(object):
             "img_dir": "robotseg/group2_2017_aug201/images",
             "ann_file": "robotseg/group2_2017_aug201/RobotSeg2017_aug_simple201_group2.json"
         },          
+=======
+        "coco_2017_train": {
+            "img_dir": "coco/train2017",
+            "ann_file": "coco/annotations/instances_train2017.json"
+        },
+        "coco_2017_val": {
+            "img_dir": "coco/val2017",
+            "ann_file": "coco/annotations/instances_val2017.json"
+        },
+>>>>>>> 5f2a8263a1a0f2f5f0137042cd4ba64efcb6859a
         "coco_2014_train": {
             "img_dir": "coco/train2014",
             "ann_file": "coco/annotations/instances_train2014.json"
